@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="./dist/output.css" type="text/css" media="all" />
+</head>
+<body>
+  
+<button id="play-all-button">play</button>
+  <section class="surat p-5">
+  </section>
+  
+  <script type="text/javascript" charset="utf-8">
+    function createAyatElement(ayat) {
+      const audioSrc = ayat.audio['02'];
+      return `
+        <div class="containtygter my-6 shadow-lg rounded-2xl p-4">
+          <p class="text-center">
+            <audio src="${audioSrc}" preload="none" ></audio>
+            <button class="text-4xl mb-5" onclick="toggleAudio(this)">${ayat.teksArab}</button>
+          </p>
+          <p class="border-b border-b-2 border-b-black pb-2 italic text-sm">${ayat.teksLatin}</p>
+          <p class="mt-2 text-sm">${ayat.teksIndonesia}</p>
+        </div>`;
+    }
+    
+    function toggleAudio(button) {
+      const audio = button.parentNode.querySelector('audio');
+      if (audio.paused) {
+        audio.play();
+        button.classList.add('active');
+      } else {
+        audio.pause();
+        audio.currentTime = 0;
+        button.classList.remove('active');
+      }
+    }
+    
+    fetch(sessionStorage.getItem('clickedUrl'))
+      .then(res => res.json())
+      .then(res => {
+        const ayats = res.data.ayat.map(ayat => createAyatElement(ayat)).join('');
+        document.querySelector('.surat').innerHTML += ayats;
+      });
+
+
+  </script>
+</body>
+</html>
