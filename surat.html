@@ -9,41 +9,60 @@
 </head>
 <body>
   
-<button id="play-all-button">play</button>
+  <button id="play-all-button">play</button>
+  <select class="qari">
+    <option value="01">Abdullah Al Juhany</option>
+    <option value="02">Abdul Muhsin Al Qasim</option>
+    <option value="03">Abdurrahman as Sudais</option>
+    <option value="04">Ibrahim Al Dosari</option>
+    <option value="05">Misyari Rasyid Al-Afasi</option>
+  </select>
   <section class="surat p-5">
   </section>
   
   <script type="text/javascript" charset="utf-8">
-    function createAyatElement(ayat) {
-      const audioSrc = ayat.audio['02'];
+    const qari = document.querySelector(".qari"),
+          suratURL = localStorage.getItem('clickedUrl');
+    
+    // buat element ayat
+    function createAyatElement(ayat, audio) {
       return `
-        <div class="containtygter my-6 shadow-lg rounded-2xl p-4">
+        <div class="container my-6 shadow-lg rounded-2xl p-4">
           <p class="text-center">
-            <audio src="${audioSrc}" preload="none" ></audio>
-            <button class="text-4xl mb-5" onclick="toggleAudio(this)">${ayat.teksArab}</button>
+            <audio src="${audio}" preload="none" ></audio>
+            <button class="text-4xl mb-5 text-center" onclick="toggleAudio(this)">${ayat.teksArab}</button>
           </p>
           <p class="border-b border-b-2 border-b-black pb-2 italic text-sm">${ayat.teksLatin}</p>
           <p class="mt-2 text-sm">${ayat.teksIndonesia}</p>
         </div>`;
     }
     
+    qari.addEventListener("change", () => {
+      fetch(suratURL)
+        .then(res => res.json()).then(res => {
+          const ayats = res.data.ayat.map(ayat => createAyatElement(ayat, ayat.audio[qari.value]));
+            document.querySelector('.surat').innerHTML = ayats;
+        })
+    })
+    
+    // putar audio saat ayat diklik
     function toggleAudio(button) {
       const audio = button.parentNode.querySelector('audio');
       if (audio.paused) {
         audio.play();
-        button.classList.add('active');
       } else {
         audio.pause();
         audio.currentTime = 0;
-        button.classList.remove('active');
       }
     }
     
-    fetch(sessionStorage.getItem('clickedUrl'))
+    // fetching url dari localstorage
+    fetch(suratURL)
       .then(res => res.json())
       .then(res => {
-        const ayats = res.data.ayat.map(ayat => createAyatElement(ayat)).join('');
-        document.querySelector('.surat').innerHTML += ayats;
+        console.log(res)
+        const ayats = res.data.ayat.map(ayat => createAyatElement(ayat, ayat.audio['02']));
+        document.querySelector('.surat').innerHTML = ayats.join('');
       });
 
 
