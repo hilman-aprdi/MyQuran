@@ -69,8 +69,7 @@
 
     </style>
   </head>
-  <body>
-    
+  <body class="bg-sky-50">
     <div id="loading-indicator" class="flex items-center justify-center loading-indicator fixed top-0 bg-primary hidden h-screen w-screen z-50">
       <div class="text-center">
         <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
@@ -81,6 +80,8 @@
     
     
     <input type="text" id="search-box" placeholder="🔍 Cari Surat..." class="block m-auto text-center border border-primary rounded-full border-2 bg-transparent p-3 my-8" />
+    
+    <a href="#" class="fixed bg-primary/50 backdrop-blur-md rounded-full h-10 w-10 grid place-items-center top-[90vh] right-10 animate-bounce">☝️</a>
     
     <section class="container surat-cont grid md:grid-cols-2 gap-4 md:gap-8">
     </section>
@@ -98,25 +99,55 @@
           <option value="05">Misyari Rasyid Al-Afasi</option>
         </select>
           <input type="checkbox" class="sr-only" id="desk"/>
-          <button class="bg-primary font-bold rounded-lg p-3">Tafsir</button>
+          <button class="bg-primary font-bold rounded-lg p-3 tafsir-btn" onclick="tafsirSurat()">Tafsir</button>
           <label for="desk" class="bg-primary font-bold rounded-lg p-3">Deskripsi</label>
           <p class="deskripsi peer-checked:hidden mt-5 text-black border-dotted border-primary border-2 rounded-lg p-7 hidden bg-white leading-7"></p>
         </div>
       </div>
+      
       <section class="surat p-5">
       </section>
     </div>
+    
+    <section class="tafsir-cont hidden container">
+    </section>
     
     <script type="text/javascript" charset="utf-8">
       let suratContainer = document.querySelector('.surat-cont'),
       searchBox = document.querySelector('#search-box'),
       loadingIndicator = document.querySelector('.loading-indicator'),
       ayatContainer = document.querySelector('.ayat-cont'),
+      tafsirContainer = document.querySelector('.tafsir-cont')
       qari = document.querySelector('.qari'),
       audioFull = document.querySelector('audio');
       suratURL = "";
 
-
+     function tafsirSurat() {
+       tafsirContainer.classList.remove("hidden")
+       suratContainer.classList.add("hidden");
+       ayatContainer.classList.add("hidden");
+       loadingIndicator.style.display = 'flex';
+       const id = ayatContainer.querySelector('.ayat-elem').dataset.id;
+       fetch(`https://equran.id/api/v2/tafsir/${id}`)
+         .then(res => res.json()).then(res => {
+           loadingIndicator.style.display = 'none';
+           let tafsirHTML = '';
+           res.data.tafsir.forEach((ayat, index) => {
+             index+=1;
+             tafsirHTML += `
+               <div class="my-4 md:mx-8">
+                 <input type="checkbox" id="tafsir${index}" class="peer sr-only" />
+                 <label for="tafsir${index}" class="text-xl font-bold bg-primary block p-4 text-white rounded-lg peer-checked:rounded-b-none flex justify-between hover:opacity-75 transition">
+                   <span>Ayat ke-${index}</span>
+                   <span>📖</span>
+                 </label>
+                 <p class="px-1.5 py-2 hidden border border-primary border-4 rounded-b-lg peer-checked:block">${ayat.teks}</p>
+               </div>`;
+           })
+           tafsirContainer.innerHTML = tafsirHTML;
+         })
+     }
+     
 loadingIndicator.style.display = 'flex';
 fetch("https://equran.id/api/v2/surat")
   .then(response => response.json())
@@ -169,6 +200,7 @@ fetch("https://equran.id/api/v2/surat")
           });
             suratContainer.classList.add("hidden")
             ayatContainer.classList.remove("hidden")
+
           });
         }
         loadingIndicator.style.display = 'none';
@@ -177,7 +209,7 @@ fetch("https://equran.id/api/v2/surat")
     // buat element ayat
     function createAyatElement(ayat, audio, nomor) {
       return `
-        <div class="container my-6 shadow-lg rounded-2xl p-4">
+        <div class="container ayat-elem my-6 shadow-lg rounded-2xl p-4" data-id="${nomor}">
           <p class="text-center mb-3">${ayat.nomorAyat}:${nomor}</p>
           <p class="text-center">
             <audio src="${audio}" preload="none" ></audio>
@@ -209,9 +241,10 @@ fetch("https://equran.id/api/v2/surat")
     
  /*
 history.pushState(null, null, location.href);
-window.addEventListener('popstate', event => {
+window.addEventListener('popstate', () => {
   if (suratContainer.classList.contains("hidden")) {
     ayatContainer.classList.add("hidden");
+    tafsirContainer.classList.add("hidden");
     suratContainer.classList.remove("hidden");
     searchBox.classList.remove("hidden");
   } else {
@@ -220,7 +253,7 @@ window.addEventListener('popstate', event => {
   }
 })
 
-window.addEventListener('popstate', event => {
+window.addEventListener('popstate', () => {
   history.pushState(null, null, location.href);
 });
 */
