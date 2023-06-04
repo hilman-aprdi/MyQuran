@@ -78,18 +78,37 @@
       </div>
     </div>
     
-    
-    <input type="text" id="search-box" placeholder="🔍 Cari Surat..." class="block m-auto text-center border border-primary rounded-full border-2 bg-transparent p-3 my-8" />
+   <section class="container text-center md:text-start mt-10 px-6 text-dark landing-page transition">
+    <h3 class="relative md:top-9 font-extrabold text-primary">MyQuran</h3>
+    <div class="flex flex-col md:flex-row items-center overflow-hidden py-14">
+      <div class="flex-1 md:pr-16">
+        <h1 class="font-bold text-3xl md:text-4xl mb-5 font-semibold">Baca Al-Qur'an Online</h1>
+        <p class="md:text-lg">
+          Jelajahi ayat-ayat suci dan temukan makna yang dalam untuk hidup Anda. Mulailah perjalanan spiritual Anda dengan Al-Qur'an secara online.
+        </p>
+        <a href="#search-box" onclick="invisible()" class="bg-primary rounded-full px-5 py-3 inline-block self-center font-bold mt-5 mx-auto text-white text-center shadow-lg shadow-primary/50 animate-bounce hover:opacity-50">Get Started</a>
+      </div>
+      <div class="pt-14 relative -z-10">
+        <div class="h-72 w-72 md:scale-[2] mx-auto bg-primary/25 rounded-[100px] rotate-45 relative md:-right-7"></div>
+        <img src="img/quran.png" class="absolute top-8 left-1/2 -translate-x-1/2 md:translate-x-0 md:-left-14 w-full md:scale-[1.25]" alt="QuranApp" />
+      </div>
+    </div>
+  </section>
+  
+    <input type="text" id="search-box" placeholder="🔍 Cari Surat..." class="hidden block m-auto text-center border border-primary rounded-full border-2 bg-transparent p-3 my-8" />
     
     <a href="#" class="fixed bg-primary/50 backdrop-blur-md rounded-full h-10 w-10 grid place-items-center top-[90vh] right-10 animate-bounce">☝️</a>
     
-    <section class="container surat-cont grid md:grid-cols-2 gap-4 md:gap-8">
+    <section class="container hidden surat-cont grid md:grid-cols-2 gap-4 md:gap-8">
     </section>
     
-    <div class="hidden ayat-cont flex flex-col items-center">
+    <div class="hidden ayat-cont flex flex-col items-center my-10">
       <div class="flex flex-wrap flex-col md:flex-row justify-center items-center gap-8 text-sm text-white container">
-        <audio class="audio rounded-full border border-2 border-primary" controls preload="none">
-        </audio>
+        <div class="flex flex-col md:flex-row items-center gap-8 text-center">
+          <div class="surat-info text-black"></div>
+          <audio class="audio rounded-full border border-2 border-primary" controls preload="none">
+          </audio>
+        </div>
         <div class="flex flex-wrap gap-5 justify-center">
           <select class="qari p-3 font-bold rounded-lg bg-primary">
           <option value="01">Abdullah Al Juhany</option>
@@ -109,18 +128,32 @@
       </section>
     </div>
     
-    <section class="tafsir-cont hidden container">
+    <section class="tafsir-cont hidden container my-10">
+      <div class="tafsir-info text-center"></div>
     </section>
     
     <script type="text/javascript" charset="utf-8">
       let suratContainer = document.querySelector('.surat-cont'),
+      ayatContainer = document.querySelector('.ayat-cont'),
+      tafsirContainer = document.querySelector('.tafsir-cont'),
+      suratInfo = document.querySelector(".surat-info"),
       searchBox = document.querySelector('#search-box'),
       loadingIndicator = document.querySelector('.loading-indicator'),
-      ayatContainer = document.querySelector('.ayat-cont'),
-      tafsirContainer = document.querySelector('.tafsir-cont')
       qari = document.querySelector('.qari'),
       audioFull = document.querySelector('audio');
       suratURL = "";
+      
+      function invisible() {
+        loadingIndicator.style.display = 'flex';
+        suratContainer.classList.remove("hidden");
+        searchBox.classList.remove("hidden")
+        const lp = document.querySelector(".landing-page")
+        lp.classList.add("invisible");
+        setTimeout(() => {
+          lp.classList.add("hidden")
+          loadingIndicator.style.display = 'none';
+        }, 1000);
+      }
 
      function tafsirSurat() {
        tafsirContainer.classList.remove("hidden")
@@ -131,20 +164,23 @@
        fetch(`https://equran.id/api/v2/tafsir/${id}`)
          .then(res => res.json()).then(res => {
            loadingIndicator.style.display = 'none';
+           const tafsirInfo = document.querySelector(".tafsir-info");
+           tafsirInfo.innerHTML = `
+             <h1 class="text-xl font-bold text-black">Tafsir surat <i>${res.data.namaLatin}</i></h1>`;
            let tafsirHTML = '';
            res.data.tafsir.forEach((ayat, index) => {
              index+=1;
              tafsirHTML += `
                <div class="my-4 md:mx-8">
                  <input type="checkbox" id="tafsir${index}" class="peer sr-only" />
-                 <label for="tafsir${index}" class="text-xl font-bold bg-primary block p-4 text-white rounded-lg peer-checked:rounded-b-none flex justify-between hover:opacity-75 transition">
+                 <label for="tafsir${index}" class="text-xl font-bold bg-primary block p-4 text-white rounded-lg peer-checked:rounded-b-none flex justify-between hover:opacity-75 transition hover:animate-pulse">
                    <span>Ayat ke-${index}</span>
                    <span>📖</span>
                  </label>
                  <p class="px-1.5 py-2 hidden border border-primary border-4 rounded-b-lg peer-checked:block">${ayat.teks}</p>
                </div>`;
            })
-           tafsirContainer.innerHTML = tafsirHTML;
+           tafsirContainer.innerHTML += tafsirHTML;
          })
      }
      
@@ -153,7 +189,6 @@ fetch("https://equran.id/api/v2/surat")
   .then(response => response.json())
   .then(data => {
     // Proses respons API
-    console.log(data);
     let suratHTML = "";
     for (const surat of data.data) {
       suratHTML += `
@@ -191,8 +226,18 @@ fetch("https://equran.id/api/v2/surat")
         fetch(suratURL)
           .then(res => res.json())
           .then(res => {
+            const surat = res.data;
+            console.log(surat)
+            suratInfo.innerHTML = `
+              <h1 class="text-6xl">${surat.nama}</h1>
+              <p class="text-lg">(${surat.namaLatin})</p>
+              <div>
+                <span>${surat.arti} • </span>
+                <span>${surat.jumlahAyat} Ayat • </span>
+                <span>${surat.tempatTurun}</span>
+              </div>
+              `;
             loadingIndicator.style.display = 'none';
-            console.log(res.data.audioFull["05"])
             const ayats = res.data.ayat.map(ayat => createAyatElement(ayat, ayat.audio['02'], res.data.nomor));
               audioFull.innerHTML = `<source src="${res.data.audioFull["05"]}"></source>`;
               document.querySelector('.deskripsi').innerHTML = res.data.deskripsi;
@@ -239,7 +284,7 @@ fetch("https://equran.id/api/v2/surat")
       }
     }
     
- /*
+ 
 history.pushState(null, null, location.href);
 window.addEventListener('popstate', () => {
   if (suratContainer.classList.contains("hidden")) {
@@ -256,7 +301,7 @@ window.addEventListener('popstate', () => {
 window.addEventListener('popstate', () => {
   history.pushState(null, null, location.href);
 });
-*/
+
 
 
     </script>
