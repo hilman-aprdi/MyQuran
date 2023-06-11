@@ -5,10 +5,18 @@
 
 @layer base {
   * {
-    @apply font-poppins;
+    @apply font-poppins transition duration-300 text-white;
   }
   
   body {
     @apply bg-cyan-50;
+  }
+  
+}
+
+
+@layer components {
+  .jadwal {
+    @apply flex w-full justify-between p-3 rounded-full shadow-lg border-b-2 border-b-white;
   }
 }
