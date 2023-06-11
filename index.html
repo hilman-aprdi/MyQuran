@@ -456,9 +456,7 @@ window.addEventListener('popstate', () => {
     suratContainer.classList.remove("hidden")
     jadwal.classList.remove("hidden");
     searchBox.classList.remove("hidden");
-  } else {
-    window.history.go(-1);
-  }
+  } 
 })
 window.addEventListener('popstate', () => {
   history.pushState(null, null, location.href);
