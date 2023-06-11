@@ -662,6 +662,11 @@ body{
   margin-bottom: 2.5rem;
 }
 
+.my-16{
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+}
+
 .my-4{
   margin-top: 1rem;
   margin-bottom: 1rem;
@@ -680,11 +685,6 @@ body{
 .my-8{
   margin-top: 2rem;
   margin-bottom: 2rem;
-}
-
-.my-16{
-  margin-top: 4rem;
-  margin-bottom: 4rem;
 }
 
 .mb-3{
@@ -709,10 +709,6 @@ body{
 
 .mt-5{
   margin-top: 1.25rem;
-}
-
-.mt-8{
-  margin-top: 2rem;
 }
 
 .block{
@@ -755,21 +751,17 @@ body{
   width: 18rem;
 }
 
+.w-fit{
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
 .w-full{
   width: 100%;
 }
 
 .w-screen{
   width: 100vw;
-}
-
-.w-12{
-  width: 3rem;
-}
-
-.w-fit{
-  width: -moz-fit-content;
-  width: fit-content;
 }
 
 .flex-1{
@@ -942,11 +934,6 @@ body{
 .border-white{
   --tw-border-opacity: 1;
   border-color: rgb(255 255 255 / var(--tw-border-opacity));
-}
-
-.border-b-black{
-  --tw-border-opacity: 1;
-  border-bottom-color: rgb(0 0 0 / var(--tw-border-opacity));
 }
 
 .border-b-white{
@@ -1154,12 +1141,12 @@ body{
   font-weight: 800;
 }
 
-.font-semibold{
-  font-weight: 600;
-}
-
 .font-light{
   font-weight: 300;
+}
+
+.font-semibold{
+  font-weight: 600;
 }
 
 .italic{
@@ -1250,22 +1237,27 @@ body{
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
+.hover\:bg-dark\/25:hover{
+  background-color: rgb(51 65 85 / 0.25);
+}
+
 .hover\:bg-dark\/50:hover{
   background-color: rgb(51 65 85 / 0.5);
 }
 
-.hover\:bg-primary:hover{
+.hover\:bg-white:hover{
   --tw-bg-opacity: 1;
-  background-color: rgb(14 165 233 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-dark\/25:hover{
-  background-color: rgb(51 65 85 / 0.25);
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
 .hover\:text-cyan-50:hover{
   --tw-text-opacity: 1;
   color: rgb(236 254 255 / var(--tw-text-opacity));
+}
+
+.hover\:text-dark:hover{
+  --tw-text-opacity: 1;
+  color: rgb(51 65 85 / var(--tw-text-opacity));
 }
 
 .hover\:opacity-50:hover{
@@ -1279,6 +1271,11 @@ body{
 .group:hover .group-hover\:border-cyan-50{
   --tw-border-opacity: 1;
   border-color: rgb(236 254 255 / var(--tw-border-opacity));
+}
+
+.group:hover .group-hover\:text-dark{
+  --tw-text-opacity: 1;
+  color: rgb(51 65 85 / var(--tw-text-opacity));
 }
 
 .peer:checked ~ .peer-checked\:block{

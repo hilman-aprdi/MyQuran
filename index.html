@@ -339,11 +339,11 @@ function tafsirSurat() {
       tafsirHTML += `
         <div class="my-4 md:mx-8">
           <input type="checkbox" id="tafsir${index}" class="peer sr-only" />
-          <label for="tafsir${index}" class="text-xl font-bold bg-transparent backdrop-blur-lg block p-4 text-white rounded-lg peer-checked:rounded-b-none flex justify-between hover:opacity-75 transition hover:animate-pulse">
-              <span>Ayat ke-${index}</span>
+          <label for="tafsir${index}" class="text-xl font-bold bg-transparent backdrop-blur-lg block p-4 text-white rounded-lg peer-checked:rounded-b-none flex justify-between hover:bg-white border-2 border-white group">
+              <span class="group-hover:text-dark">Ayat ke-${index}</span>
               <span>📖</span>
             </label>
-            <p class="px-1.5 py-2 hidden border border-white border-4 rounded-b-lg peer-checked:block">${ayat.teks}
+            <p class="px-1.5 py-2 hidden border border-white border-2 rounded-b-lg peer-checked:block">${ayat.teks}
             </p>
           </div>
        `;
@@ -447,7 +447,7 @@ function toggleAudio(button) {
   }
 }
 
-
+/*
 history.pushState(null, null, location.href);
 window.addEventListener('popstate', () => {
   if (suratContainer.classList.contains("hidden")) {
@@ -461,7 +461,7 @@ window.addEventListener('popstate', () => {
 window.addEventListener('popstate', () => {
   history.pushState(null, null, location.href);
 });
-
+*/
   </script>
 </body>
 </html>
