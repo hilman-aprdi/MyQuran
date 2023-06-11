@@ -100,7 +100,7 @@
       <div class="flex-1 md:pr-16">
         <h1 class="font-bold text-3xl md:text-4xl mb-5 font-semibold">Baca Al-Qur'an Online</h1>
         <p class="md:text-lg"> Jelajahi ayat-ayat suci dan temukan makna yang dalam untuk hidup Anda. Mulailah perjalanan spiritual Anda dengan Al-Qur'an secara online. </p>
-        <a href="#search-box" onclick="invisible()" class="backdrop-blur-lg text-black border border-white rounded-full px-5 py-3 inline-block self-center font-bold mt-5 mx-auto text-white text-center shadow-lg shadow-white/50 animate-bounce hover:opacity-50">Baca Sekarang!</a>
+        <a href="#search-box" onclick="invisible()" class="backdrop-blur-lg text-black border border-white rounded-full px-5 py-3 inline-block self-center font-bold mt-5 mx-auto text-white text-center shadow-lg shadow-white/50 animate-bounce hover:opacity-50">Get Started</a>
       </div>
       <div class="pt-14 relative -z-10">
         <div class="h-72 w-72 md:scale-[2] mx-auto bg-white/25 rounded-[100px] rotate-45 relative md:-right-7"></div>
@@ -108,7 +108,7 @@
       </div>
     </div>
   </section>
-    <section class="text-white container flex flex-col items-center py-10 font-bold">
+    <section class="text-white container flex flex-col items-center py-10 font-bold hidden jadwal-shalat">
     <h2 class="text-3xl font-bold">Selamat <span class="greeting">xxxx</span></h2>
     <div class="text-center font-extrabold my-10 py-14 rounded-lg shadow-lg bg-transparent backdrop-blur-lg w-full">
       <h4 class="text-2xl date">Sabtu, 10 Juni 2023</h4>
@@ -186,6 +186,7 @@
         timeCont = document.querySelector(".time"),
         dateCont = document.querySelector(".date"),
         greeting = document.querySelector(".greeting"),
+        jadwal = document.querySelector(".jadwal-shalat"),
         jadwalCont = document.querySelector(".jadwal-cont"),
         jadwalInfo = document.querySelector(".jadwal-info"),
         bgCbox = document.querySelector("#bg"),
@@ -309,6 +310,7 @@
 function invisible() {
   loadingIndicator.style.display = 'flex';
   suratContainer.classList.remove("hidden");
+  jadwal.classList.remove("hidden");
   searchBox.classList.remove("hidden")
   const lp = document.querySelector(".landing-page")
   lp.classList.add("invisible");
@@ -405,6 +407,7 @@ fetch("https://equran.id/api/v2/surat").then(response => response.json()).then(d
       });
       suratContainer.classList.add("hidden")
       ayatContainer.classList.remove("hidden")
+      jadwal.classList.add("hidden")
     });
   }
   loadingIndicator.style.display = 'none';
@@ -444,22 +447,23 @@ function toggleAudio(button) {
   }
 }
 
-/*
+
 history.pushState(null, null, location.href);
 window.addEventListener('popstate', () => {
   if (suratContainer.classList.contains("hidden")) {
     ayatContainer.classList.add("hidden");
     tafsirContainer.classList.add("hidden");
-    suratContainer.classList.remove("hidden");
+    suratContainer.classList.remove("hidden")
+    jadwal.classList.remove("hidden");
     searchBox.classList.remove("hidden");
   } else {
     window.history.go(-1);
-    console.log(window.history)
   }
 })
 window.addEventListener('popstate', () => {
   history.pushState(null, null, location.href);
-});*/
+});
+
   </script>
 </body>
 </html>
