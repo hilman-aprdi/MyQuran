@@ -80,8 +80,8 @@
   </style>
 </head>
 
-<body style="background-image:url('./img/5.png')" class="bg-cover bg-center bg-fixed h-screen w-screen">
-  <div id="loading-indicator" class="flex items-center justify-center loading-indicator fixed top-0 bg-primary hidden h-screen w-screen z-50">
+<body class="bg-cover bg-primary bg-center bg-fixed w-screen">
+  <div id="loading-indicator" class="flex items-center justify-center loading-indicator fixed top-0 bg-transparent backdrop-blur-lg hidden h-screen w-screen z-50">
     <div class="text-center">
       <div class="lds-ellipsis">
         <div></div>
@@ -103,48 +103,58 @@
         <a href="#search-box" onclick="invisible()" class="backdrop-blur-lg text-black border border-white rounded-full px-5 py-3 inline-block self-center font-bold mt-5 mx-auto text-white text-center shadow-lg shadow-white/50 animate-bounce hover:opacity-50">Baca Sekarang!</a>
       </div>
       <div class="pt-14 relative -z-10">
-        <div class="h-72 w-72 md:scale-[2] mx-auto bg-primary/25 rounded-[100px] rotate-45 relative md:-right-7"></div>
+        <div class="h-72 w-72 md:scale-[2] mx-auto bg-white/25 rounded-[100px] rotate-45 relative md:-right-7"></div>
         <img src="img/quran.png" class="absolute top-8 left-1/2 -translate-x-1/2 md:translate-x-0 md:-left-14 w-full md:scale-[1.25]" alt="QuranApp" />
       </div>
     </div>
   </section>
     <section class="text-white container flex flex-col items-center py-10 font-bold">
     <h2 class="text-3xl font-bold">Selamat <span class="greeting">xxxx</span></h2>
-    <div class="slct-bg bg-transparent bg-white backdrop-blur-lg rounded-full flex gap-7 p-3">
-      <div data-bg="1" class="bg-[#490C80] h-10 w-10 rounded-full"></div>
-      <div data-bg="2" class="bg-[#C1B544] h-10 w-10 rounded-full"></div>
-      <div data-bg="3" class="bg-[#975531] h-10 w-10 rounded-full"></div>
-      <div data-bg="4" class="bg-[#812A2A] h-10 w-10 rounded-full"></div>
-      <div data-bg="5" class="bg-[#00336F] h-10 w-10 rounded-full"></div>
-    </div>
     <div class="text-center font-extrabold my-10 py-14 rounded-lg shadow-lg bg-transparent backdrop-blur-lg w-full">
       <h4 class="text-2xl date">Sabtu, 10 Juni 2023</h4>
       <h1 class="text-4xl time mt-3">00:00:00</h1>
     </div>
-    <select class="kota bg-transparent backdrop-blur-lg rounded-full shadow-lg p-3 hover:bg-dark/50">
+    <div class="my-16 border border-white rounded-xl p-4 shadow-lg bg-transparent backdrop-blur-lg">
+      <h2 class="text-center text-md font-bold">Ganti Background</h2>
+      <div class="container scale-75 slct-bg bg-transparent bg-white backdrop-blur-lg rounded-full flex justify-evenly md:justify-center gap-7 p-3">
+      <div data-bg="1" data-hex="#490C80" class="bg-[#490C80] h-10 w-10 rounded-full"></div>
+      <div data-bg="2" data-hex="#C1B544" class="bg-[#C1B544] h-10 w-10 rounded-full"></div>
+      <div data-bg="3" data-hex="#975531" class="bg-[#975531] h-10 w-10 rounded-full"></div>
+      <div data-bg="4" data-hex="#812A2A" class="bg-[#812A2A] h-10 w-10 rounded-full"></div>
+      <div data-bg="5" data-hex="#00336F" class="bg-[#00336F] h-10 w-10 rounded-full"></div>
+    </div>
+    <div class="flex items-center gap-2 mx-auto w-fit">
+      <input type="checkbox" name="" id="bg" />
+      <label for="bg" class="font-light">Sertakan Gambar</label>
+
+    </div>
+    </div>
+    <h1 class="text-xl font-bold mb-5">Jadwal Shalat 🇮🇩</h1>
+    <select class="kota bg-transparent backdrop-blur-lg rounded-full shadow-lg p-3 hover:bg-dark/50 border border-white">
       <option hidden>Pilih Lokasi</option>
     </select>
-    <label for="date" class="backdrop-blur-lg p-3 rounded-full my-5 shadow-lg hover:bg-dark/50">Set Date 📅</label>
+    <label for="date" class="backdrop-blur-lg p-3 rounded-full my-5 shadow-lg hover:bg-dark/50 border border-white">Set Date 📅</label>
     <input type="date" class="sr-only slct-date" value="set date" id="date"/>
-    <div class="bg-transparent backdrop-blur-lg w-full">
-      <div class="jadwal-cont grid place-items-center grid-cols-1 md:grid-cols-2 w-full rounded-lg p-5 gap-5 font-bold">
+    <div class="bg-transparent backdrop-blur-lg w-full py-5">
+      <div class="jadwal-info"></div>
+      <div class="hidden jadwal-cont grid place-items-center grid-cols-1 md:grid-cols-2 w-full rounded-lg p-5 gap-5 font-bold shadow-lg">
       </div>
     </div>
   </section>
   
-  <input type="text" id="search-box" placeholder="🔍 Cari Surat..." class="hidden block m-auto text-center border border-primary rounded-full border-2 bg-transparent p-3 my-8" />
-  <a href="#" class="fixed bg-primary/50 backdrop-blur-md rounded-full h-10 w-10 grid place-items-center top-[90vh] right-10 animate-bounce">☝️</a>
+  <input type="text" id="search-box" placeholder="🔍 Cari Surat..." class="hidden block m-auto text-center border border-white rounded-full border-2 bg-transparent p-3 my-8 placeholder-white" />
+  <a href="#" class="fixed bg-white/50 backdrop-blur-md rounded-full h-10 w-10 grid place-items-center top-[90vh] right-10 animate-bounce z-50">☝️</a>
   <section class="container hidden surat-cont grid md:grid-cols-2 gap-4 md:gap-8">
   </section>
   <div class="hidden ayat-cont flex flex-col items-center my-10">
     <div class="flex flex-wrap flex-col md:flex-row justify-center items-center gap-8 text-sm text-white container">
       <div class="flex flex-col md:flex-row items-center gap-8 text-center">
         <div class="surat-info text-dark"></div>
-        <audio class="audio rounded-full border border-2 border-primary" controls preload="none">
+        <audio class="audio rounded-full border border-2 border-white" controls preload="none">
         </audio>
       </div>
       <div class="flex flex-wrap gap-5 justify-center">
-        <select class="qari p-3 font-bold rounded-lg bg-primary">
+        <select class="qari p-3 font-bold rounded-lg bg-transparent backdrop-blur-lg border border-white">
           <option value="01">Abdullah Al Juhany</option>
           <option value="02">Abdul Muhsin Al Qasim</option>
           <option value="03">Abdurrahman as Sudais</option>
@@ -152,9 +162,9 @@
           <option value="05" selected>Misyari Rasyid Al-Afasi</option>
         </select>
         <input type="checkbox" class="sr-only" id="desk" />
-        <button class="bg-primary font-bold rounded-lg p-3 tafsir-btn" onclick="tafsirSurat()">Tafsir</button>
-        <label for="desk" class="bg-primary font-bold rounded-lg p-3">Deskripsi</label>
-        <p class="deskripsi peer-checked:hidden mt-5 text-dark border-dotted border-primary border-2 rounded-lg p-7 hidden bg-white leading-7"></p>
+        <button class="bg-transparent backdrop-blur-lg border border-white font-bold rounded-lg p-3 tafsir-btn" onclick="tafsirSurat()">Tafsir</button>
+        <label for="desk" class="bg-transparent backdrop-blur-lg border border-white font-bold rounded-lg p-3">Deskripsi</label>
+        <p class="deskripsi peer-checked:hidden mt-5 text-dark border-dotted border-white border-2 rounded-lg p-7 hidden bg-white leading-7"></p>
       </div>
     </div>
     <section class="surat p-5">
@@ -163,13 +173,11 @@
   <section class="tafsir-cont hidden container my-10">
     <div class="tafsir-info text-center"></div>
   </section>
-
-<div class="relative w-full min-h-36 bg-red-500">
-<div class="absolute w-full h-10 bg-gradient-to-t from-white to-transparent">
-
-</div>
-</div>
   
+    
+    <footer class="pb-10 pt-20 w-screen bg-transparent backdrop-blur-lg">
+      <h4 class="text-center text-sm font-extrabold">&copy;2023 QuranQu</h4>
+    </footer>
   
    <script type="text/javascript" charset="utf-8">
     
@@ -179,12 +187,22 @@
         dateCont = document.querySelector(".date"),
         greeting = document.querySelector(".greeting"),
         jadwalCont = document.querySelector(".jadwal-cont"),
+        jadwalInfo = document.querySelector(".jadwal-info"),
+        bgCbox = document.querySelector("#bg"),
+        select = document.querySelector(".slct-bg"),
         date = new Date();
         
-   const select = document.querySelector(".slct-bg");
     select.addEventListener("click", e => {
-      const selectedValue = e.target.dataset.bg;
-      if(selectedValue != undefined) document.body.style.backgroundImage = `url(./img/${selectedValue}.png)`;
+      const selectedBg = e.target.dataset.bg,
+            selectedHex = e.target.dataset.hex;
+      if(selectedBg != undefined) {
+        if(bgCbox.checked) {
+        document.body.style.backgroundImage = `url(./img/${selectedBg}.png)`;
+        } else {
+          document.body.style.backgroundImage = `none`;
+          document.body.style.backgroundColor = selectedHex;
+        }
+      }
     });
     
     fetch("https://api.myquran.com/v1/sholat/kota/semua")
@@ -205,11 +223,15 @@
           locationID = slctOpt.value,
           location = slctOpt.textContent;
           defaultDate = new Date().toLocaleDateString('zh-Hans-CH'),
-          slctDate = document.querySelector(".slct-date").value;
-          url = `https://api.myquran.com/v1/sholat/jadwal/${locationID}/${defaultDate}`
+          slctDate = document.querySelector(".slct-date").value.split("-").join("/");
+          url = `https://api.myquran.com/v1/sholat/jadwal/${locationID}/${slctDate == "" ? defaultDate : slctDate}`
         console.log(url)
       fetch(url).then(res => res.json()).then(res => {
+        jadwalCont.classList.remove("hidden");
+        console.log(slctDate)
         const jadwalShalat = res.data.jadwal;
+        jadwalInfo.innerHTML = `
+        <p class="text-center">Jadwal Shalat ${location} hari <br>${jadwalShalat.tanggal}</p>`;
         jadwalCont.innerHTML = `
           <div class="jadwal">
             <p>Subuh</p>
@@ -308,18 +330,18 @@ function tafsirSurat() {
     loadingIndicator.style.display = 'none';
     const tafsirInfo = document.querySelector(".tafsir-info");
     tafsirInfo.innerHTML = `
-      <h1 class="text-xl font-bold text-black">Tafsir surat <i>${res.data.namaLatin}</i></h1>`;
+      <h1 class="text-xl font-bold">Tafsir surat <i>${res.data.namaLatin}</i></h1>`;
     let tafsirHTML = '';
     res.data.tafsir.forEach((ayat, index) => {
       index += 1;
       tafsirHTML += `
         <div class="my-4 md:mx-8">
           <input type="checkbox" id="tafsir${index}" class="peer sr-only" />
-          <label for="tafsir${index}" class="text-xl font-bold bg-primary block p-4 text-white rounded-lg peer-checked:rounded-b-none flex justify-between hover:opacity-75 transition hover:animate-pulse">
+          <label for="tafsir${index}" class="text-xl font-bold bg-transparent backdrop-blur-lg block p-4 text-white rounded-lg peer-checked:rounded-b-none flex justify-between hover:opacity-75 transition hover:animate-pulse">
               <span>Ayat ke-${index}</span>
               <span>📖</span>
             </label>
-            <p class="px-1.5 py-2 hidden border border-primary border-4 rounded-b-lg peer-checked:block">${ayat.teks}
+            <p class="px-1.5 py-2 hidden border border-white border-4 rounded-b-lg peer-checked:block">${ayat.teks}
             </p>
           </div>
        `;
@@ -333,8 +355,8 @@ fetch("https://equran.id/api/v2/surat").then(response => response.json()).then(d
   let suratHTML = "";
   for (const surat of data.data) {
     suratHTML += `
-      <div class="letter shadow-lg p-8 flex items-center gap-4 rounded-2xl hover:bg-primary hover:text-cyan-50 group transition-all duration-300 ease-in-out border border-primary border-2 BG text-dark">
-        <div class="rounded-full flex items-center justify-center h-10 w-10 border-dotted border-2 border-dark group-hover:border-cyan-50">${surat.nomor}</div>
+      <div class="letter shadow-lg p-8 flex items-center gap-4 rounded-2xl hover:bg-dark/25 hover:text-cyan-50 group transition-all duration-300 ease-in-out border border-white border-2 bg-transparent backdrop-blur-lg">
+        <div class="rounded-full flex items-center justify-center h-10 w-10 border-dotted border-2 border-white group-hover:border-cyan-50">${surat.nomor}</div>
           <div class="grid">
           <h4 class="font-bold">${surat.namaLatin} (${surat.nama})</h4>
           <div class="flex gap-3 text-xs">
@@ -391,13 +413,13 @@ fetch("https://equran.id/api/v2/surat").then(response => response.json()).then(d
 
 function createAyatElement(ayat, audio, nomor) {
   return `
-    <div class="container ayat-elem my-6 shadow-lg rounded-2xl p-4" data-id="${nomor}">
+    <div class="container ayat-elem my-6 shadow-lg rounded-2xl p-4 bg-transparent backdrop-blur-lg" data-id="${nomor}">
       <p class="text-center mb-3">${ayat.nomorAyat}:${nomor}</p>
       <p class="text-center">
         <audio src="${audio}" preload="none" ></audio>
         <button class="text-4xl mb-5 text-center" onclick="toggleAudio(this)">${ayat.teksArab}<span class="mt-5 block text-sm">🔊</span></button>
       </p>
-      <p class="border-b border-b-2 border-b-black pb-2 italic text-sm">${ayat.teksLatin}</p>
+      <p class="border-b border-b-2 border-b-white pb-2 italic text-sm">${ayat.teksLatin}</p>
       <p class="mt-2 text-sm">${ayat.teksIndonesia}</p>
     </div>`;
 }
