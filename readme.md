@@ -3,4 +3,4 @@
 ## Deskripsi 
 
 ## Preview
-![QuranQu](20230611_215300.jpg)
+![QuranQu](img/20230611_215300.jpg)
