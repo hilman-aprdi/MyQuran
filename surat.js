@@ -12,6 +12,7 @@ let suratContainer = document.querySelector('.surat-cont'),
 function invisible() {
   loadingIndicator.style.display = 'flex';
   suratContainer.classList.remove("hidden");
+  jadwal.classList.remove("hidden");
   searchBox.classList.remove("hidden")
   const lp = document.querySelector(".landing-page")
   lp.classList.add("invisible");
@@ -33,18 +34,18 @@ function tafsirSurat() {
     loadingIndicator.style.display = 'none';
     const tafsirInfo = document.querySelector(".tafsir-info");
     tafsirInfo.innerHTML = `
-      <h1 class="text-xl font-bold text-black">Tafsir surat <i>${res.data.namaLatin}</i></h1>`;
+      <h1 class="text-xl font-bold">Tafsir surat <i>${res.data.namaLatin}</i></h1>`;
     let tafsirHTML = '';
     res.data.tafsir.forEach((ayat, index) => {
       index += 1;
       tafsirHTML += `
         <div class="my-4 md:mx-8">
           <input type="checkbox" id="tafsir${index}" class="peer sr-only" />
-          <label for="tafsir${index}" class="text-xl font-bold bg-primary block p-4 text-white rounded-lg peer-checked:rounded-b-none flex justify-between hover:opacity-75 transition hover:animate-pulse">
-              <span>Ayat ke-${index}</span>
+          <label for="tafsir${index}" class="text-xl font-bold bg-transparent backdrop-blur-lg block p-4 text-white rounded-lg peer-checked:rounded-b-none flex justify-between hover:bg-white border-2 border-white group">
+              <span class="group-hover:text-dark">Ayat ke-${index}</span>
               <span>📖</span>
             </label>
-            <p class="px-1.5 py-2 hidden border border-primary border-4 rounded-b-lg peer-checked:block">${ayat.teks}
+            <p class="px-1.5 py-2 hidden border border-white border-2 rounded-b-lg peer-checked:block backdrop-blur-lg">${ayat.teks}
             </p>
           </div>
        `;
@@ -58,8 +59,8 @@ fetch("https://equran.id/api/v2/surat").then(response => response.json()).then(d
   let suratHTML = "";
   for (const surat of data.data) {
     suratHTML += `
-      <div class="letter shadow-lg p-8 flex items-center gap-4 rounded-2xl hover:bg-primary hover:text-cyan-50 group transition-all duration-300 ease-in-out border border-primary border-2 BG">
-        <div class="rounded-full flex items-center justify-center h-10 w-10 border-dotted border-2 border-dark group-hover:border-cyan-50">${surat.nomor}</div>
+      <div class="letter shadow-lg p-8 flex items-center gap-4 rounded-2xl hover:bg-dark/25 hover:text-cyan-50 group transition-all duration-300 ease-in-out border border-white border-2 bg-transparent backdrop-blur-lg">
+        <div class="rounded-full flex items-center justify-center h-10 w-10 border-dotted border-2 border-white group-hover:border-cyan-50">${surat.nomor}</div>
           <div class="grid">
           <h4 class="font-bold">${surat.namaLatin} (${surat.nama})</h4>
           <div class="flex gap-3 text-xs">
@@ -108,6 +109,7 @@ fetch("https://equran.id/api/v2/surat").then(response => response.json()).then(d
       });
       suratContainer.classList.add("hidden")
       ayatContainer.classList.remove("hidden")
+      jadwal.classList.add("hidden")
     });
   }
   loadingIndicator.style.display = 'none';
@@ -116,13 +118,13 @@ fetch("https://equran.id/api/v2/surat").then(response => response.json()).then(d
 
 function createAyatElement(ayat, audio, nomor) {
   return `
-    <div class="container ayat-elem my-6 shadow-lg rounded-2xl p-4" data-id="${nomor}">
+    <div class="container ayat-elem my-6 shadow-lg rounded-2xl p-4 bg-transparent backdrop-blur-lg" data-id="${nomor}">
       <p class="text-center mb-3">${ayat.nomorAyat}:${nomor}</p>
       <p class="text-center">
         <audio src="${audio}" preload="none" ></audio>
         <button class="text-4xl mb-5 text-center" onclick="toggleAudio(this)">${ayat.teksArab}<span class="mt-5 block text-sm">🔊</span></button>
       </p>
-      <p class="border-b border-b-2 border-b-black pb-2 italic text-sm">${ayat.teksLatin}</p>
+      <p class="border-b border-b-2 border-b-white pb-2 italic text-sm">${ayat.teksLatin}</p>
       <p class="mt-2 text-sm">${ayat.teksIndonesia}</p>
     </div>`;
 }
@@ -153,12 +155,10 @@ window.addEventListener('popstate', () => {
   if (suratContainer.classList.contains("hidden")) {
     ayatContainer.classList.add("hidden");
     tafsirContainer.classList.add("hidden");
-    suratContainer.classList.remove("hidden");
+    suratContainer.classList.remove("hidden")
+    jadwal.classList.remove("hidden");
     searchBox.classList.remove("hidden");
-  } else {
-    window.history.go(-1);
-    console.log(window.history)
-  }
+  } 
 })
 window.addEventListener('popstate', () => {
   history.pushState(null, null, location.href);
